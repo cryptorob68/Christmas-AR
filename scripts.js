@@ -6,19 +6,27 @@ AFRAME.registerComponent('yard-grid', {
         // Create grid material
         const gridMaterial = new THREE.LineBasicMaterial({
             color: 0x00ff00,
-            opacity: 0.5,
+            opacity: 0.8,
             transparent: true
         });
 
-        // Create larger grid
-        const gridSize = 30; // 30-foot width
-        const gridDivisions = 30; // 1-foot squares
+        // Create larger grid with more divisions
+        const gridSize = 40; // Increased size for better visibility
+        const gridDivisions = 40; // More divisions for finer grid
         const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00ff00, 0x00ff00);
         
-        // Move grid to ground level
-        gridHelper.position.y = 0.01; // Slightly above ground to be visible
+        // Move grid to ground level and slightly forward
+        gridHelper.position.y = 0.01; // Slightly above ground
+        gridHelper.position.z = -10; // Centered in the scene
         
         scene.add(gridHelper);
+
+        // Add second grid for depth perception
+        const depthGrid = new THREE.GridHelper(gridSize, gridDivisions, 0x00ff00, 0x00ff00);
+        depthGrid.position.y = 0.01;
+        depthGrid.rotation.x = Math.PI / 2; // Rotate to show depth
+        depthGrid.position.z = -10;
+        scene.add(depthGrid);
     }
 });
 
