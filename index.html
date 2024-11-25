@@ -5,102 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="scripts.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene 
-        embedded
-        arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
-        renderer="precision: medium;"
-        vr-mode-ui="enabled: false"
-        scene-manager>
+    <a-scene webxr="requiredFeatures: hit-test" yard-grid embedded arjs="sourceType: webcam; debugUIEnabled: false;">
         
-        <!-- Environment -->
-        <a-entity light="type: ambient; intensity: 1.2"></a-entity>
-        <a-entity light="type: directional; intensity: 1.5; position: 1 1 1"></a-entity>
-
-        <!-- Snow System -->
-        <a-entity position="0 8 -10">
-            <a-entity snow="count: 3000; range: 20; speed: 1"></a-entity>
+        <!-- Snow Entity -->
+        <a-entity snow></a-entity>
+        
+        <!-- Santa - far left -->
+        <a-entity
+            id="santa"
+            gltf-model="models/santa.glb"
+            position="-12 0 -8"
+            rotation="0 180 0"
+            scale="3.0 3.0 3.0"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 35000; easing: linear">
         </a-entity>
 
-        <!-- Anchor entity that will hold all characters -->
-        <a-anchor hit-testing-enabled="true" ar-hit-test>
-            <!-- Santa -->
-            <a-entity
-                id="santa"
-                gltf-model="models/santa.glb"
-                position="-8 0 -12"
-                rotation="0 160 0"
-                scale="1.0 1.0 1.0"
-                animation="property: rotation; to: 0 520 0; loop: true; dur: 35000; easing: linear">
-            </a-entity>
+        <!-- Presents Bag - near Santa -->
+        <a-entity
+            id="presents-bag"
+            gltf-model="models/presents-bag.glb"
+            position="-10 0 -9"
+            rotation="0 180 0"
+            scale="2.2 2.2 2.2"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 32000; easing: linear">
+        </a-entity>
 
-            <!-- Presents Bag -->
-            <a-entity
-                id="presents-bag"
-                gltf-model="models/presents-bag.glb"
-                position="-6 0 -14"
-                rotation="0 180 0"
-                scale="0.7 0.7 0.7"
-                animation="property: rotation; to: 0 540 0; loop: true; dur: 32000; easing: linear">
-            </a-entity>
+        <!-- Snowman - far right -->
+        <a-entity
+            id="snowman"
+            gltf-model="models/snowman.glb"
+            position="12 0 -6"
+            rotation="0 180 0"
+            scale="2.5 2.5 2.5"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 25000; easing: linear">
+        </a-entity>
 
-            <!-- Snowman -->
-            <a-entity
-                id="snowman"
-                gltf-model="models/snowman.glb"
-                position="7 0 -10"
-                rotation="0 200 0"
-                scale="0.9 0.9 0.9"
-                animation="property: rotation; to: 0 560 0; loop: true; dur: 25000; easing: linear">
-            </a-entity>
+        <!-- Jack Frost - back right -->
+        <a-entity
+            id="jack-frost"
+            gltf-model="models/jack-frost.glb"
+            position="8 0 -15"
+            rotation="0 180 0"
+            scale="2.8 2.8 2.8"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 28000; easing: linear">
+        </a-entity>
 
-            <!-- Jack Frost -->
-            <a-entity
-                id="jack-frost"
-                gltf-model="models/jack-frost.glb"
-                position="4 0 -16"
-                rotation="0 180 0"
-                scale="1.0 1.0 1.0"
-                animation="property: rotation; to: 0 540 0; loop: true; dur: 28000; easing: linear">
-            </a-entity>
+        <!-- Elf - right of sleigh -->
+        <a-entity
+            id="elf"
+            gltf-model="models/elf.glb"
+            position="5 0 -12"
+            rotation="0 180 0"
+            scale="2.4 2.4 2.4"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 27000; easing: linear">
+        </a-entity>
 
-            <!-- Elf -->
-            <a-entity
-                id="elf"
-                gltf-model="models/elf.glb"
-                position="0 0 -13"
-                rotation="0 170 0"
-                scale="0.8 0.8 0.8"
-                animation="property: rotation; to: 0 530 0; loop: true; dur: 27000; easing: linear">
-            </a-entity>
-
-            <!-- Grinch -->
-            <a-entity
-                id="grinch"
-                gltf-model="models/grinch.glb"
-                position="-3 0 -20"
-                rotation="0 190 0"
-                scale="1.1 1.1 1.1"
-                animation="property: rotation; to: 0 550 0; loop: true; dur: 29000; easing: linear">
-            </a-entity>
-        </a-anchor>
+        <!-- Grinch - far back -->
+        <a-entity
+            id="grinch"
+            gltf-model="models/grinch.glb"
+            position="-8 0 -18"
+            rotation="0 180 0"
+            scale="2.7 2.7 2.7"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 29000; easing: linear">
+        </a-entity>
 
         <!-- Camera -->
-        <a-entity camera look-controls position="0 1.6 0"></a-entity>
-
-        <!-- Cursor for interaction -->
-        <a-entity cursor="fuse: false; rayOrigin: mouse;"></a-entity>
-    </a-scene>
-
-    <!-- Instructions Overlay -->
-    <div id="instructions">
-        <h1>Christmas AR Experience</h1>
-        <p>Scan the ground and tap where you want the scene to appear!</p>
-        <button onclick="this.parentElement.style.display = 'none'">Start Experience</button>
-    </div>
-</body>
-</html>
+        <a-entity camera></a-entity>
