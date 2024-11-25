@@ -1,22 +1,18 @@
 // Add this new component
-AFRAME.registerComponent('model-scaling', {
+// Add this at the top of your scripts.js file
+AFRAME.registerComponent('aspect-ratio-fix', {
     init: function() {
-        // Initial scale
-        this.baseScale = 0.5;
-        
-        // Handle orientation changes
-        window.addEventListener('resize', this.updateScale.bind(this));
-        this.updateScale();
+        this.el.object3D.scale.set(0.5, 0.5, 0.5);
     },
-
-    updateScale: function() {
-        const isPortrait = window.innerHeight > window.innerWidth;
-        const scale = this.baseScale;
-        
-        // Maintain aspect ratio regardless of orientation
-        this.el.setAttribute('scale', `${scale} ${scale} ${scale}`);
+    
+    tick: function() {
+        // Maintain uniform scale
+        const scale = this.el.object3D.scale.x;
+        this.el.object3D.scale.set(scale, scale, scale);
     }
 });
+
+// ... keep your existing snow component below this ...
 
 // Add this new component for snow
 AFRAME.registerComponent('snow', {
