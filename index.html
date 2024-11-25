@@ -31,16 +31,15 @@
         </a-entity>
 
         <!-- Santa's Sleigh -->
-        <!-- Replace your current sleigh entity with this -->
-<a-entity
-    gltf-model="models/sleigh.glb"
-    position="0 0 -8"
-    rotation="0 180 0"
-    scale="0.5 0.5 0.5"
-    geometry="primitive: box; width: auto; height: auto"
-    material="transparent: true; opacity: 0"
-    aspect-ratio-fix>
-</a-entity>
+        <a-entity
+            id="sleigh"
+            gltf-model="models/sleigh.glb"
+            position="0 0 -8"
+            rotation="0 180 0"
+            scale="0.5 0.5 0.5"
+            animation="property: rotation; to: 0 540 0; loop: true; dur: 30000; easing: linear">
+        </a-entity>
+        
         <!-- Camera -->
         <a-entity camera position="0 1.6 0" look-controls wasd-controls></a-entity>
     </a-scene>
