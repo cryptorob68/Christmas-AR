@@ -1,3 +1,23 @@
+// Add this new component
+AFRAME.registerComponent('model-scaling', {
+    init: function() {
+        // Initial scale
+        this.baseScale = 0.5;
+        
+        // Handle orientation changes
+        window.addEventListener('resize', this.updateScale.bind(this));
+        this.updateScale();
+    },
+
+    updateScale: function() {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        const scale = this.baseScale;
+        
+        // Maintain aspect ratio regardless of orientation
+        this.el.setAttribute('scale', `${scale} ${scale} ${scale}`);
+    }
+});
+
 // Add this new component for snow
 AFRAME.registerComponent('snow', {
     init: function() {
