@@ -1,5 +1,27 @@
-// Add this new component
-// Add this at the top of your scripts.js file
+// virtual grid
+AFRAME.registerComponent('yard-grid', {
+    init: function() {
+        const scene = this.el.sceneEl.object3D;
+        
+        // Create grid material
+        const gridMaterial = new THREE.LineBasicMaterial({
+            color: 0x00ff00,
+            opacity: 0.5,
+            transparent: true
+        });
+
+        // Create larger grid
+        const gridSize = 30; // 30-foot width
+        const gridDivisions = 30; // 1-foot squares
+        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00ff00, 0x00ff00);
+        
+        // Move grid to ground level
+        gridHelper.position.y = 0.01; // Slightly above ground to be visible
+        
+        scene.add(gridHelper);
+    }
+});
+
 AFRAME.registerComponent('fix-aspect', {
     schema: {
         width: {type: 'number', default: 1},
