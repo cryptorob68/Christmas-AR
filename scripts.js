@@ -1,69 +1,39 @@
-// virtual grid
-AFRAME.registerComponent('yard-grid', {
+// Ground plane detection component
+AFRAME.registerComponent('ground-plane-detector', {
     init: function() {
-        const scene = this.el.sceneEl.object3D;
-        
-        // Create grid material
-        const gridMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ff00,
-            opacity: 0.8,
-            transparent: true
+        this.groundHeight = 0;
+        this.el.sceneEl.addEventListener('enter-vr', () => {
+            if (this.el.sceneEl.is('ar-mode')) {
+                this.setupARGroundPlane();
+            }
         });
+    },
 
-        // Create larger grid with more divisions
-        const gridSize = 40; // Increased size for better visibility
-        const gridDivisions = 40; // More divisions for finer grid
-        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00ff00, 0x00ff00);
-        
-        // Move grid to ground level and slightly forward
-        gridHelper.position.y = 0.01; // Slightly above ground
-        gridHelper.position.z = -10; // Centered in the scene
-        
-        scene.add(gridHelper);
-
-        // Add second grid for depth perception
-        const depthGrid = new THREE.GridHelper(gridSize, gridDivisions, 0x00ff00, 0x00ff00);
-        depthGrid.position.y = 0.01;
-        depthGrid.rotation.x = Math.PI / 2; // Rotate to show depth
-        depthGrid.position.z = -10;
-        scene.add(depthGrid);
+    setupARGroundPlane: function() {
+        const session = this.el.sceneEl.renderer.xr.getSession();
+        session.requestReferenceSpace('viewer').then((viewerSpace) => {
+            session.requestHitTest(new XRRay(), viewerSpace).then((results) => {
+                if (results.length) {
+                    const hitPose = results[0].getPose(viewerSpace);
+                    this.groundHeight = hitPose.transform.position.y;
+                    this.el.sceneEl.emit('ground-plane-found', { height: this.groundHeight });
+                }
+            });
+        });
     }
 });
 
-AFRAME.registerComponent('fix-aspect', {
-    schema: {
-        width: {type: 'number', default: 1},
-        height: {type: 'number', default: 1}
-    },
-
+// Ground tracking component for characters
+AFRAME.registerComponent('ground-tracking', {
     init: function() {
-        this.camera = document.querySelector('[camera]');
-        this.updateScale = this.updateScale.bind(this);
-        window.addEventListener('resize', this.updateScale);
-        setTimeout(this.updateScale, 100);
-    },
-
-    updateScale: function() {
-        const el = this.el;
-        const data = this.data;
-        const camera = this.camera;
-
-        if (!el || !camera) return;
-
-        const cameraPos = camera.getAttribute('position');
-        const position = el.getAttribute('position');
-        const distance = position.z - cameraPos.z;
-
-        const fov = 2 * Math.atan(1 / camera.components.camera.data.fov);
-        const scale = Math.abs(distance * Math.tan(fov));
-
-        el.setAttribute('scale', `${scale} ${scale} ${scale}`);
+        this.originalY = this.el.object3D.position.y;
+        this.el.sceneEl.addEventListener('ground-plane-found', (e) => {
+            this.el.object3D.position.y = e.detail.height + this.originalY;
+        });
     }
 });
 
-// ... keep your existing snow component below this ...
-
-// Add this new component for snow
+// Snow component (updated to work with ground plane)
 AFRAME.registerComponent('snow', {
     init: function() {
         this.snowflakes = [];
@@ -85,12 +55,12 @@ AFRAME.registerComponent('snow', {
         const snowGeo = new THREE.BufferGeometry();
         const positions = [];
 
-        // Create 1000 snowflakes
+        // Create 1000 snowflakes with wider spread
         for (let i = 0; i < 1000; i++) {
             positions.push(
-                Math.random() * 10 - 5, // x between -5 and 5
-                Math.random() * 5 + 2,  // y between 2 and 7
-                Math.random() * 10 - 5  // z between -5 and 5
+                Math.random() * 30 - 15,  // x: wider spread (-15 to 15)
+                Math.random() * 10 + 2,   // y: higher start (2 to 12)
+                Math.random() * 30 - 15   // z: wider spread (-15 to 15)
             );
         }
 
@@ -106,20 +76,21 @@ AFRAME.registerComponent('snow', {
         if (!this.snow) return;
 
         const positions = this.snow.geometry.attributes.position.array;
+        const groundHeight = 0; // Will be updated when ground plane is found
 
         // Animate each snowflake
         for (let i = 0; i < positions.length; i += 3) {
             // Move snowflake down
-            positions[i + 1] -= deltaTime * 0.001; // Y position
+            positions[i + 1] -= deltaTime * 0.001;
 
             // Add slight horizontal movement
-            positions[i] += Math.sin(time * 0.001 + i) * 0.001; // X position
+            positions[i] += Math.sin(time * 0.001 + i) * 0.001;
             
             // Reset snowflake to top when it falls below ground
-            if (positions[i + 1] < 0) {
-                positions[i] = this.initialPositions[i];     // Reset X
-                positions[i + 1] = this.initialPositions[i + 1]; // Reset Y
-                positions[i + 2] = this.initialPositions[i + 2]; // Reset Z
+            if (positions[i + 1] < groundHeight) {
+                positions[i] = Math.random() * 30 - 15;     // Random x
+                positions[i + 1] = Math.random() * 10 + 12; // Reset to top
+                positions[i + 2] = Math.random() * 30 - 15; // Random z
             }
         }
 
