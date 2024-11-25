@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Christmas AR Scene</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="scripts.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a-scene webxr="requiredFeatures: hit-test,local-floor;">
+        <!-- Virtual Grid -->
+        <a-entity id="ground-grid" visible="false">
+            <!-- Grid will be created by JavaScript -->
+        </a-entity>
+
+        <!-- Christmas Scene (will be placed once ground is detected) -->
+        <a-entity id="christmas-scene" visible="false">
+            <!-- Characters will be positioned relative to this parent entity -->
+        </a-entity>
+
+        <!-- Camera -->
+        <a-entity camera position="0 1.6 0" look-controls wasd-controls></a-entity>
+    </a-scene>
+
+    <!-- UI Overlay -->
+    <div id="ui-overlay">
+        <div id="instructions">
+            <h2>Christmas AR Experience</h2>
+            <p>Move your device around to detect the ground.</p>
+            <p>Once the grid appears, tap to place the Christmas scene!</p>
+        </div>
+    </div>
+</body>
+</html>
