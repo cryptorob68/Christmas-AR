@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;">
         
         <!-- Snow Entity -->
         <a-entity snow></a-entity>
         
+        <!-- Ground Plane -->
+        <a-entity id="ground" geometry="primitive: plane; width: 30; height: 30" material="color: #7BC8A4; opacity: 0.5" rotation="-90 0 0"></a-entity>
+
         <!-- Santa -->
         <a-entity
             id="santa"
@@ -69,13 +72,13 @@
         </a-entity>
 
         <!-- Camera -->
-        <a-entity camera></a-entity>
+        <a-entity camera look-controls position="0 1.6 0"></a-entity>
     </a-scene>
 
     <!-- Instructions Overlay -->
     <div id="instructions">
         <h1>Christmas AR Experience</h1>
-        <p>Point your camera at the ground to see the Christmas scene!</p>
+        <p>Scan the ground to place the characters!</p>
         <button onclick="this.parentElement.style.display = 'none'">Start Experience</button>
     </div>
 </body>
