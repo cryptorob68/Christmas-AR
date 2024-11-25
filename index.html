@@ -15,60 +15,60 @@
         <a-entity snow></a-entity>
         
         <!-- Ground Plane -->
-        <a-entity id="ground" geometry="primitive: plane; width: 30; height: 30" material="color: #7BC8A4; opacity: 0.5" rotation="-90 0 0"></a-entity>
+        <a-entity id="ground" geometry="primitive: plane; width: 30; height: 30" material="color: #7BC8A4; opacity: 0.5" rotation="-90 0 0" position="0 0 0"></a-entity>
 
         <!-- Santa -->
         <a-entity
             id="santa"
             gltf-model="models/santa.glb"
-            position="-8 0.5 -12"  <!-- Adjusted Y position to be above the ground -->
+            position="-8 0 -12"  <!-- Adjusted Y position to be above the ground -->
             rotation="0 180 0"
-            scale="1.0 1.0 1.0">
+            scale="4.0 4.0 4.0">  <!-- Quadrupled size -->
         </a-entity>
 
         <!-- Presents Bag -->
         <a-entity
             id="presents-bag"
             gltf-model="models/presents-bag.glb"
-            position="-6 0.5 -14"  <!-- Adjusted Y position to be above the ground -->
+            position="-6 0 -14"  <!-- Adjusted Y position to be above the ground -->
             rotation="0 180 0"
-            scale="0.7 0.7 0.7">
+            scale="2.8 2.8 2.8">  <!-- Quadrupled size -->
         </a-entity>
 
         <!-- Snowman -->
         <a-entity
             id="snowman"
             gltf-model="models/snowman.glb"
-            position="7 0.5 -10"  <!-- Adjusted Y position to be above the ground -->
+            position="7 0 -10"  <!-- Adjusted Y position to be above the ground -->
             rotation="0 200 0"
-            scale="0.9 0.9 0.9">
+            scale="3.6 3.6 3.6">  <!-- Quadrupled size -->
         </a-entity>
 
         <!-- Jack Frost -->
         <a-entity
             id="jack-frost"
             gltf-model="models/jack-frost.glb"
-            position="4 0.5 -16"  <!-- Adjusted Y position to be above the ground -->
+            position="4 0 -16"  <!-- Adjusted Y position to be above the ground -->
             rotation="0 180 0"
-            scale="1.0 1.0 1.0">
+            scale="4.0 4.0 4.0">  <!-- Quadrupled size -->
         </a-entity>
 
         <!-- Elf -->
         <a-entity
             id="elf"
             gltf-model="models/elf.glb"
-            position="0 0.5 -13"  <!-- Adjusted Y position to be above the ground -->
+            position="0 0 -13"  <!-- Adjusted Y position to be above the ground -->
             rotation="0 170 0"
-            scale="0.8 0.8 0.8">
+            scale="3.2 3.2 3.2">  <!-- Quadrupled size -->
         </a-entity>
 
         <!-- Grinch -->
         <a-entity
             id="grinch"
             gltf-model="models/grinch.glb"
-            position="-3 0.5 -20"  <!-- Adjusted Y position to be above the ground -->
+            position="-3 0 -20"  <!-- Adjusted Y position to be above the ground -->
             rotation="0 190 0"
-            scale="1.1 1.1 1.1">
+            scale="4.4 4.4 4.4">  <!-- Quadrupled size -->
         </a-entity>
 
         <!-- Camera -->
