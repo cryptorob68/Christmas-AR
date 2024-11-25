@@ -1,14 +1,33 @@
 // Add this new component
 // Add this at the top of your scripts.js file
-AFRAME.registerComponent('aspect-ratio-fix', {
-    init: function() {
-        this.el.object3D.scale.set(0.5, 0.5, 0.5);
+AFRAME.registerComponent('fix-aspect', {
+    schema: {
+        width: {type: 'number', default: 1},
+        height: {type: 'number', default: 1}
     },
-    
-    tick: function() {
-        // Maintain uniform scale
-        const scale = this.el.object3D.scale.x;
-        this.el.object3D.scale.set(scale, scale, scale);
+
+    init: function() {
+        this.camera = document.querySelector('[camera]');
+        this.updateScale = this.updateScale.bind(this);
+        window.addEventListener('resize', this.updateScale);
+        setTimeout(this.updateScale, 100);
+    },
+
+    updateScale: function() {
+        const el = this.el;
+        const data = this.data;
+        const camera = this.camera;
+
+        if (!el || !camera) return;
+
+        const cameraPos = camera.getAttribute('position');
+        const position = el.getAttribute('position');
+        const distance = position.z - cameraPos.z;
+
+        const fov = 2 * Math.atan(1 / camera.components.camera.data.fov);
+        const scale = Math.abs(distance * Math.tan(fov));
+
+        el.setAttribute('scale', `${scale} ${scale} ${scale}`);
     }
 });
 
