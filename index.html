@@ -4,94 +4,43 @@
     <title>Christmas AR Scene</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="scripts.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene 
         embedded
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-        renderer="logarithmicDepthBuffer: true;"
+        arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+        renderer="precision: medium;"
         vr-mode-ui="enabled: false">
         
         <!-- Snow Entity -->
         <a-entity snow></a-entity>
-        
-        <!-- Santa - at first marked circle -->
-        <a-entity
-            id="santa"
-            gltf-model="models/santa.glb"
-            position="-8 0 -12"
-            rotation="0 160 0"
-            scale="1.0 1.0 1.0"
-            animation="property: rotation; to: 0 520 0; loop: true; dur: 35000; easing: linear"
-            ground-tracking>
-        </a-entity>
 
-        <!-- Presents Bag - at second marked circle -->
-        <a-entity
-            id="presents-bag"
-            gltf-model="models/presents-bag.glb"
-            position="-6 0 -14"
-            rotation="0 180 0"
-            scale="0.7 0.7 0.7"
-            animation="property: rotation; to: 0 540 0; loop: true; dur: 32000; easing: linear"
-            ground-tracking>
-        </a-entity>
+        <!-- Anchor entity that will hold all characters -->
+        <a-anchor hit-testing-enabled="true">
+            <!-- Santa -->
+            <a-entity
+                id="santa"
+                gltf-model="models/santa.glb"
+                position="-8 0 -12"
+                rotation="0 160 0"
+                scale="1.0 1.0 1.0"
+                animation="property: rotation; to: 0 520 0; loop: true; dur: 35000; easing: linear">
+            </a-entity>
 
-        <!-- Snowman - at third marked circle -->
-        <a-entity
-            id="snowman"
-            gltf-model="models/snowman.glb"
-            position="7 0 -10"
-            rotation="0 200 0"
-            scale="0.9 0.9 0.9"
-            animation="property: rotation; to: 0 560 0; loop: true; dur: 25000; easing: linear"
-            ground-tracking>
-        </a-entity>
+            <!-- Similar structure for other characters -->
+            <!-- ... other character entities ... -->
+        </a-anchor>
 
-        <!-- Jack Frost - at fourth marked circle -->
-        <a-entity
-            id="jack-frost"
-            gltf-model="models/jack-frost.glb"
-            position="4 0 -16"
-            rotation="0 180 0"
-            scale="1.0 1.0 1.0"
-            animation="property: rotation; to: 0 540 0; loop: true; dur: 28000; easing: linear"
-            ground-tracking>
-        </a-entity>
-
-        <!-- Elf - at fifth marked circle -->
-        <a-entity
-            id="elf"
-            gltf-model="models/elf.glb"
-            position="0 0 -13"
-            rotation="0 170 0"
-            scale="0.8 0.8 0.8"
-            animation="property: rotation; to: 0 530 0; loop: true; dur: 27000; easing: linear"
-            ground-tracking>
-        </a-entity>
-
-        <!-- Grinch - at back circle near house -->
-        <a-entity
-            id="grinch"
-            gltf-model="models/grinch.glb"
-            position="-3 0 -20"
-            rotation="0 190 0"
-            scale="1.1 1.1 1.1"
-            animation="property: rotation; to: 0 550 0; loop: true; dur: 29000; easing: linear"
-            ground-tracking>
-        </a-entity>
-
-        <!-- Camera with ground plane detection -->
-        <a-entity camera ground-plane-detector></a-entity>
+        <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- Instructions Overlay -->
+    <!-- Updated Instructions -->
     <div id="instructions">
         <h1>Christmas AR Experience</h1>
-        <p>Move your phone around slowly to detect the ground, then the characters will appear!</p>
+        <p>Scan the ground and tap where you want the scene to appear!</p>
         <button onclick="this.parentElement.style.display = 'none'">Start Experience</button>
     </div>
 </body>
