@@ -1,39 +1,51 @@
-// Ground plane detection component
-AFRAME.registerComponent('ground-plane-detector', {
-    init: function() {
-        this.groundHeight = 0;
-        this.el.sceneEl.addEventListener('enter-vr', () => {
-            if (this.el.sceneEl.is('ar-mode')) {
-                this.setupARGroundPlane();
-            }
+// AR Hit Test Component
+AFRAME.registerComponent('ar-hit-test', {
+    init: function () {
+        this.xrHitTestSource = null;
+        this.viewerSpace = null;
+        this.refSpace = null;
+
+        this.el.sceneEl.renderer.xr.addEventListener('sessionstart', async () => {
+            this.session = this.el.sceneEl.renderer.xr.getSession();
+
+            this.viewerSpace = await this.session.requestReferenceSpace('viewer');
+            this.refSpace = await this.session.requestReferenceSpace('local');
+            this.xrHitTestSource = await this.session.requestHitTestSource({
+                space: this.viewerSpace
+            });
+        });
+
+        this.el.sceneEl.renderer.xr.addEventListener('sessionend', () => {
+            this.xrHitTestSource = null;
         });
     },
 
-    setupARGroundPlane: function() {
-        const session = this.el.sceneEl.renderer.xr.getSession();
-        session.requestReferenceSpace('viewer').then((viewerSpace) => {
-            session.requestHitTest(new XRRay(), viewerSpace).then((results) => {
-                if (results.length) {
-                    const hitPose = results[0].getPose(viewerSpace);
-                    this.groundHeight = hitPose.transform.position.y;
-                    this.el.sceneEl.emit('ground-plane-found', { height: this.groundHeight });
+    tick: function () {
+        if (this.el.sceneEl.is('ar-mode')) {
+            if (!this.xrHitTestSource) return;
+
+            const frame = this.el.sceneEl.frame;
+            const xrViewerPose = frame.getViewerPose(this.refSpace);
+
+            if (xrViewerPose) {
+                const hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
+                if (hitTestResults.length > 0) {
+                    const hit = hitTestResults[0];
+                    const pose = hit.getPose(this.refSpace);
+                    
+                    // Update position of the anchor
+                    this.el.setAttribute('position', {
+                        x: pose.transform.position.x,
+                        y: pose.transform.position.y,
+                        z: pose.transform.position.z
+                    });
                 }
-            });
-        });
+            }
+        }
     }
 });
 
-// Ground tracking component for characters
-AFRAME.registerComponent('ground-tracking', {
-    init: function() {
-        this.originalY = this.el.object3D.position.y;
-        this.el.sceneEl.addEventListener('ground-plane-found', (e) => {
-            this.el.object3D.position.y = e.detail.height + this.originalY;
-        });
-    }
-});
-
-// Snow component (updated to work with ground plane)
+// Snow Component
 AFRAME.registerComponent('snow', {
     init: function() {
         this.snowflakes = [];
@@ -76,7 +88,6 @@ AFRAME.registerComponent('snow', {
         if (!this.snow) return;
 
         const positions = this.snow.geometry.attributes.position.array;
-        const groundHeight = 0; // Will be updated when ground plane is found
 
         // Animate each snowflake
         for (let i = 0; i < positions.length; i += 3) {
@@ -87,7 +98,7 @@ AFRAME.registerComponent('snow', {
             positions[i] += Math.sin(time * 0.001 + i) * 0.001;
             
             // Reset snowflake to top when it falls below ground
-            if (positions[i + 1] < groundHeight) {
+            if (positions[i + 1] < 0) {
                 positions[i] = Math.random() * 30 - 15;     // Random x
                 positions[i + 1] = Math.random() * 10 + 12; // Reset to top
                 positions[i + 2] = Math.random() * 30 - 15; // Random z
@@ -95,5 +106,31 @@ AFRAME.registerComponent('snow', {
         }
 
         this.snow.geometry.attributes.position.needsUpdate = true;
+    }
+});
+
+// Scene Manager Component
+AFRAME.registerComponent('scene-manager', {
+    init: function() {
+        this.placed = false;
+        this.el.addEventListener('click', () => {
+            if (!this.placed) {
+                this.placeScene();
+                this.placed = true;
+            }
+        });
+    },
+
+    placeScene: function() {
+        // Lock the scene in place when clicked
+        const sceneEl = this.el.sceneEl;
+        const camera = document.querySelector('[camera]');
+        if (camera && sceneEl.is('ar-mode')) {
+            // Update instruction text
+            const instructions = document.querySelector('#instructions p');
+            if (instructions) {
+                instructions.textContent = 'Scene placed! Walk around to view the characters.';
+            }
+        }
     }
 });
