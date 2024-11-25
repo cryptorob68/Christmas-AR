@@ -1,27 +1,3 @@
-// Ground plane detection component
-AFRAME.registerComponent('yard-grid', {
-    init: function() {
-        const scene = this.el.sceneEl.object3D;
-        
-        // Create grid material
-        const gridMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ff00,
-            opacity: 0.5,
-            transparent: true
-        });
-
-        // Create larger grid
-        const gridSize = 30; // 30-foot width
-        const gridDivisions = 30; // 1-foot squares
-        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00ff00, 0x00ff00);
-        
-        // Move grid to ground level
-        gridHelper.position.y = 0.01; // Slightly above ground to be visible
-        
-        scene.add(gridHelper);
-    }
-});
-
 // Snow component
 AFRAME.registerComponent('snow', {
     init: function() {
@@ -65,7 +41,6 @@ AFRAME.registerComponent('snow', {
         if (!this.snow) return;
 
         const positions = this.snow.geometry.attributes.position.array;
-        const groundHeight = 0; // Will be updated when ground plane is found
 
         // Animate each snowflake
         for (let i = 0; i < positions.length; i += 3) {
@@ -76,7 +51,7 @@ AFRAME.registerComponent('snow', {
             positions[i] += Math.sin(time * 0.001 + i) * 0.001;
             
             // Reset snowflake to top when it falls below ground
-            if (positions[i + 1] < groundHeight) {
+            if (positions[i + 1] < 0) {
                 positions[i] = Math.random() * 30 - 15;     // Random x
                 positions[i + 1] = Math.random() * 10 + 12; // Reset to top
                 positions[i + 2] = Math.random() * 30 - 15; // Random z
