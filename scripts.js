@@ -82,11 +82,11 @@ const loadModel = (modelPath, position, rotation, scale) => {
 };
 
 // Load all models with their respective properties
-loadModel('models/santa.glb', [-8, 5, -12], [0, Math.PI, 0], 10);
-loadModel('models/presents-bag.glb', [-6, 7, -14], [0, Math.PI, 0], 10);
-loadModel('models/snowman.glb', [7, 9, -10], [0, Math.PI * 1.5, 0], 10);
-loadModel('models/jack-frost.glb', [4, 11, -16], [0, Math.PI, 0], 10);
-loadModel('models/elf.glb', [0, 13, -13], [0, Math.PI * 0.5, 0], 10);
-loadModel('models/grinch.glb', [-3, 15, -20], [0, Math.PI * 0.5, 0], 10);
-loadModel('models/stich.glb', [-5, 17, -15], [0, Math.PI * 0.5, 0], 10);
-loadModel('models/minion-1.glb', [-5, 19, -25], [0, Math.PI * 0.5, 0], 10);
+loadModel('models/santa.glb', [-8, 1.5, -12], [0, Math.PI, 0], 10);
+loadModel('models/presents-bag.glb', [-6, 1.5, -14], [0, Math.PI, 0], 10);
+loadModel('models/snowman.glb', [7, 1.5, -10], [0, Math.PI * 1.5, 0], 10);
+loadModel('models/jack-frost.glb', [4, 1.5, -16], [0, Math.PI, 0], 10);
+loadModel('models/elf.glb', [0, 1.5, -13], [0, Math.PI * 0.5, 0], 10);
+loadModel('models/grinch.glb', [-3, 1.5, -20], [0, Math.PI * 0.5, 0], 10);
+loadModel('models/stich.glb', [-5, 1.5, -15], [0, Math.PI * 0.5, 0], 10);
+loadModel('models/minion-1.glb', [-5, 1.5, -25], [0, Math.PI * 0.5, 0], 10);
