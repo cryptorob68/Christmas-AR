@@ -61,3 +61,32 @@ AFRAME.registerComponent('snow', {
         this.snow.geometry.attributes.position.needsUpdate = true;
     }
 });
+
+// Load models and scale them
+const modelLoader = new THREE.GLTFLoader();
+
+const scaleModel = (model, scale) => {
+    model.scale.set(scale, scale, scale);
+};
+
+const loadModel = (modelPath, position, rotation, scale) => {
+    modelLoader.load(modelPath, (gltf) => {
+        const model = gltf.scene;
+        model.position.set(...position);
+        model.rotation.set(...rotation);
+        scaleModel(model, scale);
+        document.querySelector('a-scene').object3D.add(model);
+    }, undefined, (error) => {
+        console.error('An error happened while loading the model:', error);
+    });
+};
+
+// Load all models with their respective properties
+loadModel('models/santa.glb', [-8, 1.5, -12], [0, Math.PI, 0], 30);
+loadModel('models/presents-bag.glb', [-6, 1.5, -14], [0, Math.PI, 0], 30);
+loadModel('models/snowman.glb', [7, 1.5, -10], [0, Math.PI * 1.5, 0], 30);
+loadModel('models/jack-frost.glb', [4, 1.5, -16], [0, Math.PI, 0], 30);
+loadModel('models/elf.glb', [0, 1.5, -13], [0, Math.PI * 0.5, 0], 30);
+loadModel('models/grinch.glb', [-3, 1.5, -20], [0, Math.PI * 0.5, 0], 30);
+loadModel('models/stich.glb', [-5, 1.5, -15], [0, Math.PI * 0.5, 0], 30);
+loadModel('models/minion-1.glb', [-5, 1.5, -25], [0, Math.PI * 0.5, 0], 30);
