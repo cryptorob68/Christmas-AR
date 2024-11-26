@@ -21,7 +21,7 @@ AFRAME.registerComponent('snow', {
         const positions = [];
 
         // Create 1000 snowflakes with wider spread
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 2000; i++) {
             positions.push(
                 Math.random() * 30 - 15,  // x: wider spread (-15 to 15)
                 Math.random() * 10 + 2,   // y: higher start (2 to 12)
