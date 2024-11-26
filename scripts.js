@@ -91,4 +91,4 @@ loadModel('models/grinch.glb', [-3, 1.5, -14], [0, 0, 0], 1.5); // Grinch, facin
 loadModel('models/stich.glb', [-6, 1.5, -14], [0, 0, 0], 1.5); // Stitch, facing forward
 loadModel('models/minion-1.glb', [-9, 1.5, -14], [0, 0, 0], 1.5); // Minion 1, facing forward
 loadModel('models/minion-2.glb', [-12, 1.5, -14], [0, 0, 0], 1.5); // Minion 2, facing forward
-loadModel('models/mickey-2.glb', [-15, 1.5, -10], [0, 0, 0], 1.5); // Mickey, no rotation
+loadModel('models/mickey-2.glb', [12, -3, -14], [0, 0, 0], 1.5); // Mickey, no rotation
