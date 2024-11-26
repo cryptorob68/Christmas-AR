@@ -83,11 +83,11 @@ const loadModel = (modelPath, position, rotation, scale) => {
 };
 
 // Load all models with their respective properties
-loadModel('models/santa.glb', [0, 1.5, -16], [0, 0, 0], 1.5); // Santa, facing forward
-loadModel('models/presents-bag.glb', [3, 1.5, -16], [0, 0, 0], 1.5); // Presents Bag, facing forward
-loadModel('models/snowman.glb', [6, 1.5, -16], [0, 0, 0], 1.5); // Snowman, facing forward
-loadModel('models/jack-frost.glb', [9, 1.5, -16], [0, 0, 0], 1.5); // Jack Frost, facing forward
-loadModel('models/elf.glb', [12, 1.5, -16], [0, 0, 0], 1.5); // Elf, facing forward
+loadModel('models/santa.glb', [0, 1.5, -14], [0, 0, 0], 1.5); // Santa, facing forward
+loadModel('models/presents-bag.glb', [3, 1.5, -14], [0, 0, 0], 1.5); // Presents Bag, facing forward
+loadModel('models/snowman.glb', [6, 1.5, -14], [0, 0, 0], 1.5); // Snowman, facing forward
+loadModel('models/jack-frost.glb', [9, 1.5, -14], [0, 0, 0], 1.5); // Jack Frost, facing forward
+loadModel('models/elf.glb', [12, 1.5, -14], [0, 0, 0], 1.5); // Elf, facing forward
 loadModel('models/grinch.glb', [-3, 1.5, -14], [0, 0, 0], 1.5); // Grinch, facing forward
 loadModel('models/stich.glb', [-6, 1.5, -14], [0, 0, 0], 1.5); // Stitch, facing forward
 loadModel('models/minion-1.glb', [-9, 1.5, -14], [0, 0, 0], 1.5); // Minion 1, facing forward
