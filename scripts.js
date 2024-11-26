@@ -82,13 +82,13 @@ const loadModel = (modelPath, position, rotation, scale) => {
 };
 
 // Load all models with their respective properties
-loadModel('models/santa.glb', [-8, 2, -19], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/presents-bag.glb', [-6, 2, -21], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/snowman.glb', [7, 2, -17], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/jack-frost.glb', [4, 2, -19], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/elf.glb', [0, 2, -18], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/grinch.glb', [-3, 2, -20], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/stich.glb', [-5, 2, -21], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/minion-1.glb', [-5, 2, -23], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/minion-2.glb', [-7, 2, -23], [0, Math.PI, 0], 2); // Moved back 5 feet
-loadModel('models/mickey-2.glb', [2, 2, -16], [0, 0, 0], 2); // No rotation change
+loadModel('models/santa.glb', [-8, 2, -19], [0, Math.PI, 0], 2); // Santa, rotated 180 degrees
+loadModel('models/presents-bag.glb', [-6, 2, -19], [0, Math.PI, 0], 2); // Presents Bag, rotated 180 degrees
+loadModel('models/snowman.glb', [0, 2, -19], [0, Math.PI, 0], 2); // Snowman, rotated 180 degrees
+loadModel('models/jack-frost.glb', [6, 2, -19], [0, Math.PI, 0], 2); // Jack Frost, rotated 180 degrees
+loadModel('models/elf.glb', [12, 2, -19], [0, Math.PI, 0], 2); // Elf, rotated 180 degrees
+loadModel('models/grinch.glb', [-12, 2, -17], [0, Math.PI, 0], 2); // Grinch, rotated 180 degrees
+loadModel('models/stich.glb', [-6, 2, -17], [0, Math.PI, 0], 2); // Stitch, rotated 180 degrees
+loadModel('models/minion-1.glb', [0, 2, -17], [0, Math.PI, 0], 2); // Minion 1, rotated 180 degrees
+loadModel('models/minion-2.glb', [6, 2, -17], [0, Math.PI, 0], 2); // Minion 2, rotated 180 degrees
+loadModel('models/mickey-2.glb', [12, 2, -17], [0, 0, 0], 2); // Mickey, no rotation
