@@ -6,7 +6,6 @@
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="scripts.js"></script>
-    <link rel="stylesheet" href="styles.css">
     <style>
         #loading {
             position: fixed;
@@ -16,25 +15,35 @@
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
-            display: none; /* Hidden by default */
+            display: none;
+            z-index: 1000;
+        }
+        #instructions {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 1000;
         }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <div id="loading">Loading models, please wait...</div>
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;">
-        
-        <!-- Snow Entity -->
-        <a-entity snow></a-entity>
-        
-        <!-- Ground Plane at 0 feet elevation -->
-        <a-entity id="ground" geometry="primitive: plane; width: 30; height: 30" material="color: #FFFAFA; opacity: 0.5" rotation="-90 0 0" position="0 0 0"></a-entity>
+    <div id="instructions">Scan the QR code in the yard to view the characters</div>
 
-        <!-- Characters will be loaded dynamically -->
-        <a-entity id="characters"></a-entity>
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+        <!-- Custom marker -->
+        <a-marker type="pattern" url="path/to/your/custom-marker.patt">
+            <!-- Characters will be positioned relative to this marker -->
+            <a-entity id="characters"></a-entity>
+        </a-marker>
 
         <!-- Camera -->
-        <a-entity camera look-controls position="0 1.6 0"></a-entity>
+        <a-entity camera></a-entity>
     </a-scene>
 </body>
 </html>
